@@ -11,7 +11,7 @@ export const updateUserInFirestore = async (user) => {
   if (doc && doc.exists) {
     updateUserLastLoginTime(user);
   } else {
-    addNewUserToFirestore(user);
+    addNewUserFromGoogle(user);
   }
 };
 
@@ -23,14 +23,26 @@ const updateUserLastLoginTime = (user) => {
   firestore.collection("users").doc(user.user.uid).update(details);
 };
 
-const addNewUserToFirestore = (user) => {
+const addNewUserFromGoogle = (user) => {
   const { profile } = user.additionalUserInfo;
   const details = {
     firstName: profile.given_name || "",
     lastName: profile.family_name || "",
-    fullName: profile.name || "",
     email: profile.email || "",
-    createdDtm: firebase.firestore.FieldValue.serverTimestamp(),
+    createdTime: firebase.firestore.FieldValue.serverTimestamp(),
+    lastLoginTime: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+
+  firestore.collection("users").doc(user.user.uid).set(details);
+};
+
+const addNewUserFromSignUp = async (user, { firstName, lastName }) => {
+  const { profile } = user.additionalUserInfo;
+  const details = {
+    firstName: profile.given_name || "",
+    lastName: profile.family_name || "",
+    email: profile.email || "",
+    createdTime: firebase.firestore.FieldValue.serverTimestamp(),
     lastLoginTime: firebase.firestore.FieldValue.serverTimestamp(),
   };
 

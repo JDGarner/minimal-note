@@ -55,31 +55,9 @@ export const onAuthStateChanged = (callback) => {
 export const createUser = async ({ email, password, firstName, lastName }) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    console.log(">>> Create user: ", user);
+    console.log(">>> Created user: ", user);
     // generateUserDocument(user, { firstName, lastName });
   } catch (error) {
-    setError("Error Signing up with email and password");
+    console.log(">>> error: ", error);
   }
 };
-
-// const generateUserDocument = async (user, additionalData) => {
-//   if (!user) {
-//     return;
-//   }
-
-//   const userRef = firestore.doc(`users/${user.uid}`);
-//   const snapshot = await userRef.get();
-//   if (!snapshot.exists) {
-//     const { email } = user;
-//     try {
-//       await userRef.set({
-//         firstName,
-//         lastName,
-//         email,
-//         ...additionalData,
-//       });
-//     } catch (error) {
-//       console.error("Error creating user document", error);
-//     }
-//   }
-// };
