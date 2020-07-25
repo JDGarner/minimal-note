@@ -5,6 +5,8 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/Signup";
 import ResetPassword from "./components/ResetPassword";
 import { UserContext } from "./providers/UserProvider";
+import "./styles/index.css";
+import "./styles/bootstrap.min.css";
 
 function App() {
   const { user } = useContext(UserContext);

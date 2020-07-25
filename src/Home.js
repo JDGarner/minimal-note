@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <div>
-      <Title>Hello {user.displayName}</Title>
+      <Title>Hello {user.firstName}</Title>
       <Title>{counter}</Title>
       <Button onClick={() => setCounter((c) => c + 1)}>Click me</Button>
       <Button onClick={() => signOut()}>Sign Out</Button>
