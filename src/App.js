@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import Button from "./components/Button";
-import styled from "styled-components";
+import React, { useContext } from "react";
+import { Router } from "@reach/router";
+import Home from "./Home";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/Signup";
+import ResetPassword from "./components/ResetPassword";
+import { UserContext } from "./providers/UserProvider";
 
-const Title = styled.h1`
-  color: palevioletred;
-`;
+function App() {
+  const { user } = useContext(UserContext);
 
-const App = () => {
-  const [counter, setCounter] = useState(0);
-
-  return (
-    <div>
-      <Title>{counter}</Title>
-      <Button buttonTitle="Click Me" onClick={() => setCounter((c) => c + 1)} />
-    </div>
+  return user ? (
+    <Home />
+  ) : (
+    <Router>
+      <SignIn path="/" />
+      <SignUp path="signUp" />
+      <ResetPassword path="passwordReset" />
+    </Router>
   );
-};
+}
 
 export default App;
