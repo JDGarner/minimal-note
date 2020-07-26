@@ -1,27 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
+import styled from "styled-components";
 import { useFormFields } from "../hooks/forms";
 import { signInWithGoogle, signIn } from "../auth/firebase/authentication";
 import FormInput from "./FormInput";
-import styled from "styled-components";
 import Header from "./Header";
-
-const ScreenContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-`;
-
-const PaddedContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: flex-start;
-`;
+import { PrimaryButton, SecondaryButton } from "./Button";
+import { Form, ScreenContainer, PaddedContainer } from "./StyledComponents";
 
 const SignIn = () => {
   const [error, setError] = useState(null);
@@ -43,10 +28,10 @@ const SignIn = () => {
 
   return (
     <ScreenContainer>
-      <Header>Sign In</Header>
+      <Header>Welcome</Header>
       <PaddedContainer>
         {error !== null && <div>{error}</div>}
-        <form>
+        <Form>
           <FormInput
             id="email"
             type="email"
@@ -61,13 +46,13 @@ const SignIn = () => {
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
-          <button className="btn btn-primary" onClick={(e) => onClickSignIn(e)}>
+          <PrimaryButton onClick={(e) => onClickSignIn(e)} style={{ width: "100%" }}>
             Sign in
-          </button>
-        </form>
-        <button className="btn btn-secondary" onClick={onClickSignInWithGoogle}>
-          Sign in with Google
-        </button>
+          </PrimaryButton>
+          <SecondaryButton onClick={onClickSignInWithGoogle} style={{ width: "100%" }}>
+            Sign in with Google
+          </SecondaryButton>
+        </Form>
         <Link className="btn btn-link" to="signUp">
           Sign up
         </Link>

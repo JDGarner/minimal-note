@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Button from "./components/Button";
+import { PrimaryButton } from "./components/Button";
 import styled from "styled-components";
 import { UserContext } from "./providers/UserProvider";
 import { signOut } from "./auth/firebase/authentication";
@@ -16,8 +16,8 @@ const Home = () => {
     <div>
       <Title>Hello {user.firstName}</Title>
       <Title>{counter}</Title>
-      <Button onClick={() => setCounter((c) => c + 1)}>Click me</Button>
-      <Button onClick={() => signOut()}>Sign Out</Button>
+      <PrimaryButton onClick={() => setCounter((c) => c + 1)}>Click me</PrimaryButton>
+      <PrimaryButton onClick={() => signOut()}>Sign Out</PrimaryButton>
     </div>
   );
 };

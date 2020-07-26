@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link } from "@reach/router";
 import { useFormFields } from "../hooks/forms";
 import { signInWithGoogle, createUser } from "../auth/firebase/authentication";
+import { Form, ScreenContainer, PaddedContainer } from "./StyledComponents";
+import FormInput from "./FormInput";
+import { PrimaryButton, SecondaryButton } from "./Button";
+import Header from "./Header";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
@@ -19,48 +23,60 @@ const SignUp = () => {
     resetAllFields();
   };
 
+  const onClickSignInWithGoogle = async () => {
+    const result = await signInWithGoogle();
+    console.log(">>> onClickSignInWithGoogle result: ", result);
+  };
+
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <div>
+    <ScreenContainer>
+      <Header>Welcome</Header>
+      <PaddedContainer>
         {error !== null && <div>{error}</div>}
-        <form>
-          <input
+        <Form>
+          <FormInput
             id="firstName"
             type="text"
             placeholder="First Name"
             value={formFields.firstName}
             onChange={createChangeHandler("firstName")}
           />
-          <input
+          <FormInput
             id="lastName"
             type="text"
             placeholder="Last Name"
             value={formFields.lastName}
             onChange={createChangeHandler("lastName")}
           />
-          <input
+          <FormInput
             id="email"
             type="email"
             placeholder="Email"
             value={formFields.email}
             onChange={createChangeHandler("email")}
           />
-          <input
+          <FormInput
             id="password"
             type="password"
             placeholder="Password"
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
-          <button onClick={(e) => onClickSignUp(e)}>Sign up</button>
-        </form>
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+          <PrimaryButton onClick={(e) => onClickSignUp(e)} style={{ width: "100%" }}>
+            Sign up
+          </PrimaryButton>
+          <SecondaryButton onClick={onClickSignInWithGoogle} style={{ width: "100%" }}>
+            Sign in with Google
+          </SecondaryButton>
+        </Form>
         <p>
-          Already have an account? <Link to="/">Sign in here</Link>
+          Already have an account?{" "}
+          <Link className="btn btn-link" to="/">
+            Sign in here
+          </Link>
         </p>
-      </div>
-    </div>
+      </PaddedContainer>
+    </ScreenContainer>
   );
 };
 
