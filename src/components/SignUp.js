@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
 import { useFormFields } from "../hooks/forms";
-import { signInWithGoogle, createUser } from "../auth/firebase/authentication";
+import { createUser } from "../auth/firebase/authentication";
 import { Form, ScreenContainer, PaddedContainer } from "./StyledComponents";
 import FormInput from "./FormInput";
-import { PrimaryButton, SecondaryButton } from "./Button";
+import { PrimaryButton } from "./Button";
 import Header from "./Header";
 
 const SignUp = () => {
@@ -21,11 +21,6 @@ const SignUp = () => {
 
     createUser({ ...formFields });
     resetAllFields();
-  };
-
-  const onClickSignInWithGoogle = async () => {
-    const result = await signInWithGoogle();
-    console.log(">>> onClickSignInWithGoogle result: ", result);
   };
 
   return (
@@ -65,9 +60,6 @@ const SignUp = () => {
           <PrimaryButton onClick={(e) => onClickSignUp(e)} style={{ width: "100%" }}>
             Sign up
           </PrimaryButton>
-          <SecondaryButton onClick={onClickSignInWithGoogle} style={{ width: "100%" }}>
-            Sign in with Google
-          </SecondaryButton>
         </Form>
         <p>
           Already have an account?{" "}

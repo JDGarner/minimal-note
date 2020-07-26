@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { updateUserInFirestore } from "./firestore";
+import { updateUserInFirestore, addNewUserFromSignUp } from "./firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDddpbJ8oGUruQ20djwEhMKyj9Sg_f9NQM",
@@ -54,9 +54,9 @@ export const onAuthStateChanged = (callback) => {
 // TODO:
 export const createUser = async ({ email, password, firstName, lastName }) => {
   try {
-    const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    console.log(">>> Created user: ", user);
-    // generateUserDocument(user, { firstName, lastName });
+    const result = await auth.createUserWithEmailAndPassword(email, password);
+    console.log(">>> Created user: ", result);
+    addNewUserFromSignUp(result.user, { firstName, lastName });
   } catch (error) {
     console.log(">>> error: ", error);
   }

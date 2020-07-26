@@ -9,8 +9,9 @@ export const UserProvider = ({ children }) => {
   useEffect(async () => {
     onAuthStateChanged(async (userAuth) => {
       console.log(">>> onAuthStateChanged: ", userAuth);
+      // TODO: get user document with userAuth?
       // const u = await getUser(userAuth);
-      // setUser(u);
+      setUser(userAuth);
     });
   }, []);
 

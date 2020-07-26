@@ -36,15 +36,14 @@ const addNewUserFromGoogle = (user) => {
   firestore.collection("users").doc(user.user.uid).set(details);
 };
 
-const addNewUserFromSignUp = async (user, { firstName, lastName }) => {
-  const { profile } = user.additionalUserInfo;
+export const addNewUserFromSignUp = async (user, { firstName, lastName }) => {
   const details = {
-    firstName: profile.given_name || "",
-    lastName: profile.family_name || "",
-    email: profile.email || "",
+    firstName,
+    lastName,
+    email: user.email,
     createdTime: firebase.firestore.FieldValue.serverTimestamp(),
     lastLoginTime: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
-  firestore.collection("users").doc(user.user.uid).set(details);
+  firestore.collection("users").doc(user.uid).set(details);
 };
