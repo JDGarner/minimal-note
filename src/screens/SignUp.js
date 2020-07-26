@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
 import { useFormFields } from "../hooks/forms";
-import { createUser } from "../auth/firebase/authentication";
-import { Form, ScreenContainer, PaddedContainer } from "./StyledComponents";
-import FormInput from "./FormInput";
-import { PrimaryButton } from "./Button";
-import Header from "./Header";
+import { signUpUser } from "../auth/firebase/authentication";
+import { Form, ScreenContainer, PaddedContainer } from "../components/StyledComponents";
+import FormInput from "../components/FormInput";
+import { PrimaryButton } from "../components/Button";
+import Header from "../components/Header";
+import ErrorMessage from "../components/ErrorMessage";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
@@ -19,15 +20,16 @@ const SignUp = () => {
   const onClickSignUp = async (e) => {
     e.preventDefault();
 
-    createUser({ ...formFields });
-    resetAllFields();
+    const result = await signUpUser({ ...formFields });
+    if (result.error) {
+      setError(result.message);
+    }
   };
 
   return (
     <ScreenContainer>
       <Header>Welcome</Header>
       <PaddedContainer>
-        {error !== null && <div>{error}</div>}
         <Form>
           <FormInput
             id="firstName"
@@ -57,6 +59,7 @@ const SignUp = () => {
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
+          <ErrorMessage message={error} isShowing={!!error} />
           <PrimaryButton onClick={(e) => onClickSignUp(e)} style={{ width: "100%" }}>
             Sign up
           </PrimaryButton>

@@ -3,10 +3,15 @@ import { Link } from "@reach/router";
 import styled from "styled-components";
 import { useFormFields } from "../hooks/forms";
 import { signInWithGoogle, signIn } from "../auth/firebase/authentication";
-import FormInput from "./FormInput";
-import Header from "./Header";
-import { PrimaryButton, SecondaryButton } from "./Button";
-import { Form, ScreenContainer, PaddedContainer } from "./StyledComponents";
+import FormInput from "../components/FormInput";
+import Header from "../components/Header";
+import { PrimaryButton, SecondaryButton } from "../components/Button";
+import { Form, ScreenContainer, PaddedContainer } from "../components/StyledComponents";
+import ErrorMessage from "../components/ErrorMessage";
+
+export const ErrorContainer = styled.div`
+  height: 30px;
+`;
 
 const SignIn = () => {
   const [error, setError] = useState(null);
@@ -15,22 +20,22 @@ const SignIn = () => {
     password: "",
   });
 
-  const onClickSignIn = (e) => {
+  const onClickSignIn = async (e) => {
     e.preventDefault();
-    // TODO: add error handling
-    signIn({ ...formFields });
+    const result = await signIn({ ...formFields });
+    if (result.error) {
+      setError(result.message);
+    }
   };
 
-  const onClickSignInWithGoogle = async () => {
-    const result = await signInWithGoogle();
-    console.log(">>> onClickSignInWithGoogle result: ", result);
+  const onClickSignInWithGoogle = () => {
+    signInWithGoogle();
   };
 
   return (
     <ScreenContainer>
       <Header>Welcome</Header>
       <PaddedContainer>
-        {error !== null && <div>{error}</div>}
         <Form>
           <FormInput
             id="email"
@@ -46,6 +51,7 @@ const SignIn = () => {
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
+          <ErrorMessage message={error} isShowing={!!error} />
           <PrimaryButton onClick={(e) => onClickSignIn(e)} style={{ width: "100%" }}>
             Sign in
           </PrimaryButton>

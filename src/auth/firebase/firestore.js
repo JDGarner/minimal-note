@@ -1,6 +1,20 @@
 import firebase from "firebase/app";
 import { firestore } from "./authentication";
 
+export const getUserByUID = async (uid) => {
+  let doc = await firestore
+    .collection("users")
+    .doc(uid)
+    .get()
+    .catch((e) => console.log("Firestore error"));
+
+  if (doc && doc.exists) {
+    return doc.data();
+  } else {
+    return null;
+  }
+};
+
 export const updateUserInFirestore = async (user) => {
   let doc = await firestore
     .collection("users")

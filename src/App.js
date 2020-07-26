@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Router } from "@reach/router";
-import Home from "./Home";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/Signup";
-import ResetPassword from "./components/ResetPassword";
+import Home from "./screens/Home";
+import SignIn from "./screens/SignIn";
+import SignUp from "./screens/SignUp";
+import PasswordReset from "./screens/PasswordReset";
 import { UserContext } from "./providers/UserProvider";
 import "./styles/index.css";
 import "./styles/bootstrap.min.css";
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <SignIn path="/" />
       <SignUp path="signUp" />
-      <ResetPassword path="passwordReset" />
+      <PasswordReset path="passwordReset" />
     </Router>
   );
 }

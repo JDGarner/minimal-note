@@ -1,17 +1,23 @@
 import React, { useState, createContext, useEffect } from "react";
 import { onAuthStateChanged } from "../auth/firebase/authentication";
+import { getUserByUID } from "../auth/firebase/firestore";
 
 export const UserContext = createContext({ user: null });
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(async () => {
+  useEffect(() => {
     onAuthStateChanged(async (userAuth) => {
-      console.log(">>> onAuthStateChanged: ", userAuth);
-      // TODO: get user document with userAuth?
-      // const u = await getUser(userAuth);
-      setUser(userAuth);
+      if (userAuth && userAuth.uid) {
+        const userFromDb = await getUserByUID(userAuth.uid);
+        if (userFromDb) {
+          console.log("User logged in: ", userFromDb);
+          setUser(userFromDb);
+        }
+      } else {
+        setUser(null);
+      }
     });
   }, []);
 

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { PrimaryButton } from "./components/Button";
+import { PrimaryButton } from "../components/Button";
 import styled from "styled-components";
-import { UserContext } from "./providers/UserProvider";
-import { signOut } from "./auth/firebase/authentication";
+import { UserContext } from "../providers/UserProvider";
+import { signOut } from "../auth/firebase/authentication";
 
 const Title = styled.h1`
   color: palevioletred;
