@@ -15,9 +15,5 @@ export const useFormFields = (initialValues) => {
     setFormFields((prev) => ({ ...prev, [key]: value }));
   };
 
-  const resetAllFields = () => {
-    setFormFields(initialValues);
-  };
-
-  return { formFields, resetAllFields, createChangeHandler };
+  return { formFields, createChangeHandler };
 };

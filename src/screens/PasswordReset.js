@@ -43,7 +43,7 @@ const PasswordReset = () => {
             Send Reset Email
           </PrimaryButton>
         </Form>
-        <Link className="btn btn-link" to="/">
+        <Link className="btn btn-link" to="/signIn">
           Back
         </Link>
       </PaddedContainer>

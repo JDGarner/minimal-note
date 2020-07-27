@@ -5,6 +5,7 @@ const StyledMessage = styled.div`
   display: ${(props) => (props.isShowing ? "block" : "none")};
   margin-bottom: 15px;
   padding-left: 10px;
+  text-align: center;
 `;
 
 const Message = ({ message, isShowing }) => {

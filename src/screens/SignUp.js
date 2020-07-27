@@ -10,7 +10,7 @@ import ErrorMessage from "../components/ErrorMessage";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
-  const { formFields, resetAllFields, createChangeHandler } = useFormFields({
+  const { formFields, createChangeHandler } = useFormFields({
     firstName: "",
     lastName: "",
     email: "",
@@ -66,9 +66,9 @@ const SignUp = () => {
         </Form>
         <p>
           Already have an account?{" "}
-          <Link className="btn btn-link" to="/">
-            Sign in here
-          </Link>
+            <Link className="btn btn-link" to="/signIn">
+              Sign in here
+            </Link>
         </p>
       </PaddedContainer>
     </ScreenContainer>

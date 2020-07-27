@@ -21,7 +21,7 @@ const ResetPassword = () => {
           <input id="email" type="email" placeholder="Email" {...emailField} />
           <button>Send me a reset link</button>
         </form>
-        <Link to="/">Back to sign in</Link>
+        <Link to="/signIn">Back to sign in</Link>
       </div>
     </div>
   );
